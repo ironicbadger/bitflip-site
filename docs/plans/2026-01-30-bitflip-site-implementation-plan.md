@@ -1,8 +1,8 @@
-# Bitflip.show Implementation Plan
+# BitFlip.show Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Scaffold the Bitflip.show site with Astro, content schema, episode pages, and a persistent audio player that supports chapters.
+**Goal:** Scaffold the BitFlip.show site with Astro, content schema, episode pages, and a persistent audio player that supports chapters.
 
 **Architecture:** Static Astro site with content collections for episodes, a custom HTML5 player component, and a sticky footer player powered by a small client-side store. Episodes are rendered from Markdown frontmatter; RSS is generated at build time from the same metadata.
 

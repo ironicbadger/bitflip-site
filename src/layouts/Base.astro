@@ -2,7 +2,7 @@
 import "../styles/theme.css";
 import StickyPlayer from "../components/StickyPlayer.astro";
 const {
-  title = "Bitflip.show",
+  title = "BitFlip.show",
   hideNav = false,
   hidePlayer = false,
 } = Astro.props;
@@ -15,6 +15,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{title}</title>
     <link
       rel="stylesheet"
@@ -31,7 +32,7 @@ const {
     <header class="site-header container">
       <div>
         <div class="site-title">
-          <a href="/">Bitflip.show</a>
+          <a href="/">BitFlip.show</a>
         </div>
         <div class="site-tagline">The pragmatic side of infrastructure.</div>
       </div>

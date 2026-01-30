@@ -18,9 +18,9 @@ type RssOptions = {
 
 const defaultOptions: RssOptions = {
   siteUrl: "https://bitflip.show",
-  title: "Bitflip.show",
+  title: "BitFlip.show",
   description:
-    "Bitflip explores the messy middle of infrastructure where self-hosting and homelabs intersect with the real-world.",
+    "BitFlip explores the messy middle of infrastructure where self-hosting and homelabs intersect with the real-world.",
   imageUrl: "https://bitflip.show/cover.png",
 };
 

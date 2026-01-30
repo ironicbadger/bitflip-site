@@ -1,9 +1,9 @@
-# Bitflip.show Website Design
+# BitFlip.show Website Design
 
 Date: January 30, 2026
 
 ## Summary
-Bitflip.show is a single‑show podcast site focused on pragmatic infrastructure topics. Content is authored as one Markdown file per episode with YAML frontmatter. The site is built statically (Astro recommended) and deployed to Cloudflare Pages, while public audio files live in Cloudflare R2. The homepage emphasizes the newest episode with a full embedded player and expanded notes, and older episodes appear as progressively lighter cards. A persistent sticky footer player keeps playback across navigation.
+BitFlip.show is a single‑show podcast site focused on pragmatic infrastructure topics. Content is authored as one Markdown file per episode with YAML frontmatter. The site is built statically (Astro recommended) and deployed to Cloudflare Pages, while public audio files live in Cloudflare R2. The homepage emphasizes the newest episode with a full embedded player and expanded notes, and older episodes appear as progressively lighter cards. A persistent sticky footer player keeps playback across navigation.
 
 ## Goals
 - Feature the latest episode front and center with full notes and an embedded player.
@@ -89,4 +89,3 @@ Markdown body contains full show notes, links, and later transcripts.
 - Contact form provider (Mailgun/SendGrid/Resend/SMTP).
 - Whether to include transcripts in RSS via podcast‑specific tags.
 - Font selection for industrial look.
-

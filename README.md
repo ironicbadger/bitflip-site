@@ -1,6 +1,6 @@
-# Bitflip.show
+# BitFlip.show
 
-The official site for Bitflip.show — the pragmatic side of infrastructure.
+The official site for BitFlip.show — the pragmatic side of infrastructure.
 
 ## Stack
 

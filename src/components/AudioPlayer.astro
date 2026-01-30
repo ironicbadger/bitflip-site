@@ -42,7 +42,7 @@ const chapterItems = (chapters ?? []).map((chapter) => ({
 <script type="module" define:vars={{ playerId }}>
   const root = document.getElementById(playerId);
   if (!root) {
-    console.warn("Bitflip player root not found", playerId);
+    console.warn("BitFlip player root not found", playerId);
   }
   const playButton = root?.querySelector("[data-play]");
   const chapters = root?.querySelectorAll("[data-seek]") ?? [];

@@ -22,3 +22,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# worktrees
+.worktrees/
+
+# favicon build artifacts
+public/favicon-source.png
+public/favicon-64.png
+public/favicon.png
+
+.worktrees/
