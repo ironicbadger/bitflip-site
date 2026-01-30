@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:root {
+  color-scheme: dark;
+  --ink-900: #0c0e10;
+  --ink-800: #14171c;
+  --ink-700: #1c2229;
+  --steel-100: #f1f2f3;
+  --steel-300: #c9d0d6;
+  --steel-500: #8b96a3;
+  --safety-500: #f38b12;
+  --safety-600: #d8740f;
+  --safety-700: #b7620c;
+  --glow: 0 0 40px rgba(243, 139, 18, 0.15);
+  --radius-lg: 24px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.4);
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--steel-100);
+  background:
+    radial-gradient(1200px 600px at 15% 20%, rgba(243, 139, 18, 0.08), transparent 60%),
+    radial-gradient(800px 500px at 85% 10%, rgba(243, 139, 18, 0.06), transparent 60%),
+    linear-gradient(160deg, var(--ink-900), var(--ink-800));
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 28px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-tagline {
+  color: var(--steel-500);
+  font-size: 0.95rem;
+  margin-top: 6px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 18px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.nav-links a {
+  color: var(--steel-300);
+}
+
+.nav-links a:hover {
+  color: var(--steel-100);
+}
+
+main {
+  padding: 24px 0 120px;
+}
+
+.card {
+  background: var(--ink-700);
+  border: 1px solid rgba(243, 139, 18, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--safety-500);
+  color: var(--ink-900);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: var(--glow);
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid var(--safety-500);
+  color: var(--safety-500);
+  box-shadow: none;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  color: var(--steel-500);
+  margin-bottom: 16px;
+}

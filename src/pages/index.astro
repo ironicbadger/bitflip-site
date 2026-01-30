@@ -1,17 +1,19 @@
 ---
-
+import Base from "../layouts/Base.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Bitflip.show">
+  <section class="card" style="padding: 32px;">
+    <div class="section-title">Latest Episode</div>
+    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 12px;">
+      Remote Access Without Regret
+    </h1>
+    <p style="color: var(--steel-300); max-width: 640px;">
+      Practical approaches to remote access that balance convenience and security.
+    </p>
+    <div style="display: flex; gap: 12px; margin-top: 20px;">
+      <a class="button" href="#">Play Episode</a>
+      <a class="button secondary" href="#">Show Notes</a>
+    </div>
+  </section>
+</Base>

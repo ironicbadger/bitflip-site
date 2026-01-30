@@ -1,0 +1,31 @@
+---
+import "../styles/theme.css";
+const { title = "Bitflip.show" } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header container">
+      <div>
+        <div class="site-title">Bitflip.show</div>
+        <div class="site-tagline">The pragmatic side of infrastructure.</div>
+      </div>
+      <nav class="nav-links">
+        <a href="/">Episodes</a>
+        <a href="/hosts">Hosts</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>
