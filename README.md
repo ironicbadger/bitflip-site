@@ -32,12 +32,21 @@ Optional:
 
 ```yaml
 youtubeUrl: "https://youtube.com/watch?v=..."
+transcriptUrl: "https://example.com/transcripts/episode.txt"
 chapters:
   - time: "00:00:00"
     title: "Intro"
 tags:
   - backups
   - networking
+guests:
+  - name: "Guest Name"
+    role: "Title or affiliation"
+    link: "https://example.com"
+sponsors:
+  - name: "Sponsor Name"
+    url: "https://example.com"
+    blurb: "Sponsor message"
 ```
 
 The Markdown body is used for full show notes and links.

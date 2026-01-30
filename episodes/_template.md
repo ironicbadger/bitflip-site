@@ -9,6 +9,7 @@ duration: "00:58:12"
 coverImage: "/images/cover-000.png"
 explicit: false
 youtubeUrl: "https://youtube.com/watch?v=example"
+transcriptUrl: "https://example.com/transcripts/000.txt"
 chapters:
   - time: "00:00:00"
     title: "Intro"
@@ -17,6 +18,14 @@ chapters:
 tags:
   - infrastructure
   - networking
+guests:
+  - name: "Guest Name"
+    role: "Title or affiliation"
+    link: "https://example.com"
+sponsors:
+  - name: "Sponsor Name"
+    url: "https://example.com"
+    blurb: "Sponsor message"
 ---
 
 ## What we cover

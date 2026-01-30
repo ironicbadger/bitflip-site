@@ -16,14 +16,38 @@ const episodes = defineCollection({
     title: z.string(),
     date: z.string(),
     summary: z.string(),
-    audioUrl: z.string().url(),
+    audioUrl: z
+      .string()
+      .refine(
+        (value) => value.startsWith("/") || /^https?:\/\//i.test(value),
+        "audioUrl must be an absolute URL or a site-relative path"
+      ),
     audioSize: z.number(),
     duration: z.string(),
     coverImage: z.string(),
     explicit: z.boolean(),
     youtubeUrl: z.string().url().optional(),
+    transcriptUrl: z.string().url().optional(),
     chapters: chaptersSchema,
     tags: z.array(z.string()).optional(),
+    guests: z
+      .array(
+        z.object({
+          name: z.string(),
+          role: z.string().optional(),
+          link: z.string().url().optional(),
+        })
+      )
+      .optional(),
+    sponsors: z
+      .array(
+        z.object({
+          name: z.string(),
+          url: z.string().url().optional(),
+          blurb: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 
