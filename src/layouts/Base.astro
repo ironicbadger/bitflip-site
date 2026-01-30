@@ -1,7 +1,11 @@
 ---
 import "../styles/theme.css";
 import StickyPlayer from "../components/StickyPlayer.astro";
-const { title = "Bitflip.show" } = Astro.props;
+const {
+  title = "Bitflip.show",
+  hideNav = false,
+  hidePlayer = false,
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -21,15 +25,17 @@ const { title = "Bitflip.show" } = Astro.props;
         </div>
         <div class="site-tagline">The pragmatic side of infrastructure.</div>
       </div>
-      <nav class="nav-links">
-        <a href="/">Episodes</a>
-        <a href="/hosts">Hosts</a>
-        <a href="/contact">Contact</a>
-      </nav>
+      {!hideNav && (
+        <nav class="nav-links">
+          <a href="/">Episodes</a>
+          <a href="/hosts">Hosts</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      )}
     </header>
     <main class="container">
       <slot />
     </main>
-    <StickyPlayer />
+    {!hidePlayer && <StickyPlayer />}
   </body>
 </html>
