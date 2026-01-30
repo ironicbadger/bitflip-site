@@ -1,43 +1,75 @@
-# Astro Starter Kit: Minimal
+# Bitflip.show
 
-```sh
-npm create astro@latest -- --template minimal
+The official site for Bitflip.show — the pragmatic side of infrastructure.
+
+## Stack
+
+- Astro (static site)
+- Cloudflare Pages (hosting)
+- Cloudflare R2 (audio files)
+- YouTube (video)
+
+## Content authoring
+
+Episodes are authored as single Markdown files in `src/content/episodes/` with YAML frontmatter and a Markdown body.
+
+Required frontmatter:
+
+```yaml
+episodeNumber: 101
+title: "Episode title"
+date: "2026-01-30"
+summary: "Short summary for cards and RSS"
+audioUrl: "https://<public-r2-url>/episode.mp3"
+audioSize: 12345678
+
+duration: "00:58:12"
+coverImage: "/images/cover-101.png"
+explicit: false
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Optional:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```yaml
+youtubeUrl: "https://youtube.com/watch?v=..."
+chapters:
+  - time: "00:00:00"
+    title: "Intro"
+tags:
+  - backups
+  - networking
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+The Markdown body is used for full show notes and links.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Publishing workflow
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Record and mix audio.
+2. Run `jivedrop` to generate MP3 with embedded metadata.
+3. Upload MP3 to R2 and copy the public URL.
+4. Update the episode Markdown frontmatter with `audioUrl`, `audioSize`, and `duration`.
+5. Commit and push — GitHub Actions deploys to Cloudflare Pages.
 
-## 🧞 Commands
+## Audio player
 
-All commands are run from the root of the project, from a terminal:
+The site uses a sticky footer player that can be triggered from the episode list or episode pages. It stores playback state in local storage and resumes on navigation.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## RSS feed
 
-## 👀 Want to learn more?
+`/rss.xml` is generated at build time from episode metadata.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Deploy
+
+Set the following GitHub secrets for Pages:
+
+- `CF_API_TOKEN`
+- `CF_ACCOUNT_ID`
+
+Update `projectName` in `.github/workflows/deploy.yml` if needed.
