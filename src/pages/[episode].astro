@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import AudioPlayer from "../components/AudioPlayer.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -35,6 +36,7 @@ const { title, episodeNumber, date, summary, tags, coverImage } = episode.data;
         )}
       </div>
     </div>
+    <AudioPlayer episode={episode} />
     <div class="detail-notes">
       <Content />
     </div>

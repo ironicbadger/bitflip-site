@@ -1,0 +1,191 @@
+<div class="sticky-player" data-sticky>
+  <div class="sticky-info">
+    <div class="sticky-title" data-title>Nothing playing</div>
+    <div class="sticky-meta" data-meta>Bitflip.show</div>
+  </div>
+  <div class="sticky-controls">
+    <button class="sticky-button" type="button" data-back>« 15s</button>
+    <button class="sticky-button" type="button" data-play>Play</button>
+    <button class="sticky-button" type="button" data-forward>15s »</button>
+  </div>
+  <div class="sticky-progress">
+    <span data-current>0:00</span>
+    <input type="range" min="0" max="100" value="0" step="1" data-range />
+    <span data-duration>0:00</span>
+  </div>
+  <audio id="global-audio"></audio>
+</div>
+
+<script type="module">
+  const root = document.querySelector("[data-sticky]");
+  const audio = root.querySelector("#global-audio");
+  const title = root.querySelector("[data-title]");
+  const meta = root.querySelector("[data-meta]");
+  const playBtn = root.querySelector("[data-play]");
+  const backBtn = root.querySelector("[data-back]");
+  const forwardBtn = root.querySelector("[data-forward]");
+  const current = root.querySelector("[data-current]");
+  const duration = root.querySelector("[data-duration]");
+  const range = root.querySelector("[data-range]");
+
+  const storageKey = "bitflip-player-state";
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+    return `${mins}:${secs}`;
+  };
+
+  const saveState = () => {
+    const state = {
+      src: audio.currentSrc || audio.src || null,
+      title: title.textContent,
+      currentTime: audio.currentTime || 0,
+      duration: audio.duration || 0,
+      playing: !audio.paused,
+    };
+    localStorage.setItem(storageKey, JSON.stringify(state));
+  };
+
+  const loadState = () => {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return;
+    try {
+      const state = JSON.parse(raw);
+      if (state.src) {
+        audio.src = state.src;
+        title.textContent = state.title || "Now playing";
+        meta.textContent = "Resumed";
+        audio.currentTime = state.currentTime || 0;
+      }
+    } catch (err) {
+      console.warn("Failed to restore player state", err);
+    }
+  };
+
+  loadState();
+
+  playBtn.addEventListener("click", async () => {
+    if (!audio.src) return;
+    if (audio.paused) {
+      await audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  backBtn.addEventListener("click", () => {
+    audio.currentTime = Math.max(0, audio.currentTime - 15);
+  });
+
+  forwardBtn.addEventListener("click", () => {
+    audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 15);
+  });
+
+  range.addEventListener("input", () => {
+    if (!audio.duration) return;
+    const value = Number(range.value) / 100;
+    audio.currentTime = audio.duration * value;
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    current.textContent = formatTime(audio.currentTime || 0);
+    if (audio.duration) {
+      duration.textContent = formatTime(audio.duration);
+      range.value = String(Math.floor((audio.currentTime / audio.duration) * 100));
+    }
+    saveState();
+  });
+
+  audio.addEventListener("play", () => {
+    playBtn.textContent = "Pause";
+  });
+
+  audio.addEventListener("pause", () => {
+    playBtn.textContent = "Play";
+  });
+
+  window.addEventListener("bitflip:play", async (event) => {
+    const { src, title: epTitle } = event.detail || {};
+    if (!src) return;
+    if (audio.src !== src) {
+      audio.src = src;
+    }
+    title.textContent = epTitle || "Now playing";
+    meta.textContent = "Now playing";
+    await audio.play();
+    saveState();
+  });
+
+  window.addEventListener("bitflip:seek", (event) => {
+    const seconds = event.detail?.seconds;
+    if (typeof seconds !== "number") return;
+    audio.currentTime = seconds;
+  });
+</script>
+
+<style>
+  .sticky-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 12, 14, 0.96);
+    border-top: 1px solid rgba(243, 139, 18, 0.3);
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    backdrop-filter: blur(10px);
+  }
+  .sticky-info {
+    display: grid;
+    gap: 4px;
+  }
+  .sticky-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .sticky-meta {
+    color: var(--steel-500);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .sticky-controls {
+    display: flex;
+    gap: 8px;
+  }
+  .sticky-button {
+    background: transparent;
+    border: 1px solid rgba(243, 139, 18, 0.5);
+    color: var(--safety-500);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .sticky-progress {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--steel-500);
+  }
+  .sticky-progress input[type="range"] {
+    width: 100%;
+  }
+  @media (max-width: 900px) {
+    .sticky-player {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .sticky-controls {
+      justify-content: flex-start;
+    }
+  }
+</style>
