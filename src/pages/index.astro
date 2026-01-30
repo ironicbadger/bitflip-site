@@ -1,19 +1,32 @@
 ---
 import Base from "../layouts/Base.astro";
+import EpisodeHero from "../components/EpisodeHero.astro";
+import EpisodeCard from "../components/EpisodeCard.astro";
+import { getCollection } from "astro:content";
+import { getLatestEpisode, getOlderEpisodes } from "../lib/episodes";
+
+const episodes = await getCollection("episodes");
+const latest = getLatestEpisode(episodes);
+const olderEpisodes = getOlderEpisodes(episodes, latest);
+const { Content } = await latest.render();
 ---
 
 <Base title="Bitflip.show">
-  <section class="card" style="padding: 32px;">
-    <div class="section-title">Latest Episode</div>
-    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 12px;">
-      Remote Access Without Regret
-    </h1>
-    <p style="color: var(--steel-300); max-width: 640px;">
-      Practical approaches to remote access that balance convenience and security.
-    </p>
-    <div style="display: flex; gap: 12px; margin-top: 20px;">
-      <a class="button" href="#">Play Episode</a>
-      <a class="button secondary" href="#">Show Notes</a>
+  <EpisodeHero episode={latest} Content={Content} />
+
+  <section style="margin-top: 36px;">
+    <div class="section-title">Older Episodes</div>
+    <div class="older-grid">
+      {olderEpisodes.map((episode) => (
+        <EpisodeCard episode={episode} key={episode.id} />
+      ))}
     </div>
   </section>
 </Base>
+
+<style>
+  .older-grid {
+    display: grid;
+    gap: 16px;
+  }
+</style>
