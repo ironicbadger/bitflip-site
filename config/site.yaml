@@ -1,0 +1,17 @@
+site:
+  title: "Bitflip.show"
+  tagline: "The pragmatic side of infrastructure."
+
+subscriptions:
+  - key: "rss"
+    label: "RSS"
+    href: "#"
+  - key: "apple"
+    label: "Apple Podcasts"
+    href: "#"
+  - key: "spotify"
+    label: "Spotify"
+    href: "#"
+  - key: "youtube"
+    label: "YouTube"
+    href: "#"
