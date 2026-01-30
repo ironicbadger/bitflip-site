@@ -28,6 +28,7 @@ pnpm-debug.log*
 
 # favicon build artifacts
 public/favicon-source.png
+public/favicon-source-transparent.png
 public/favicon-64.png
 public/favicon.png
 
