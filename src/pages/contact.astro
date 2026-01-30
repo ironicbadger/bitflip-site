@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Contact | Bitflip.show">
+  <section class="contact">
+    <div class="section-title">Contact</div>
+    <div class="contact-card">
+      <p>
+        Want to reach the hosts? Drop a note. This form will be wired to a
+        worker-backed inbox once we finalize a provider.
+      </p>
+      <form class="contact-form">
+        <label>
+          Name
+          <input type="text" name="name" placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" placeholder="How can we help?"></textarea>
+        </label>
+        <button class="button" type="submit">Send message</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-card {
+    background: rgba(12, 14, 16, 0.6);
+    border: 1px solid rgba(243, 139, 18, 0.2);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    max-width: 640px;
+  }
+  .contact-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--steel-300);
+  }
+  input,
+  textarea {
+    background: var(--ink-700);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    color: var(--steel-100);
+    font-family: var(--font-body);
+  }
+</style>

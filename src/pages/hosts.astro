@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+
+const hosts = [
+  {
+    name: "Host One",
+    role: "Co-host",
+    bio: "Infra pragmatist, homelab tinkerer, and relentless bug hunter.",
+  },
+  {
+    name: "Host Two",
+    role: "Co-host",
+    bio: "Ops-minded builder focused on the messy middle of real-world systems.",
+  },
+];
+---
+
+<Base title="Hosts | Bitflip.show">
+  <section>
+    <div class="section-title">Hosts</div>
+    <div class="host-grid">
+      {hosts.map((host) => (
+        <article class="host-card" key={host.name}>
+          <div class="host-name">{host.name}</div>
+          <div class="host-role">{host.role}</div>
+          <p class="host-bio">{host.bio}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .host-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .host-card {
+    padding: 24px;
+    background: rgba(12, 14, 16, 0.6);
+    border: 1px solid rgba(243, 139, 18, 0.2);
+    border-radius: var(--radius-md);
+  }
+  .host-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+  }
+  .host-role {
+    color: var(--steel-500);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+  .host-bio {
+    color: var(--steel-300);
+    line-height: 1.6;
+  }
+</style>
