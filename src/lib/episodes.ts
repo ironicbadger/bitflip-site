@@ -1,12 +1,19 @@
 export type EpisodeLike = {
   date?: string | Date;
-  data?: { date: string | Date };
+  episodeNumber?: number;
+  data?: { date: string | Date; episodeNumber?: number };
 };
 
 function readDate(episode: EpisodeLike): string | Date {
   if (episode.date) return episode.date;
   if (episode.data?.date) return episode.data.date;
   throw new Error("Episode is missing date");
+}
+
+function readEpisodeNumber(episode: EpisodeLike): number {
+  if (typeof episode.episodeNumber === "number") return episode.episodeNumber;
+  if (typeof episode.data?.episodeNumber === "number") return episode.data.episodeNumber;
+  throw new Error("Episode is missing episodeNumber");
 }
 
 function toDate(value: string | Date): Date {
@@ -26,4 +33,11 @@ export function getOlderEpisodes<T extends EpisodeLike>(
   return episodes
     .filter((episode) => episode !== latest)
     .sort((a, b) => toDate(readDate(b)).getTime() - toDate(readDate(a)).getTime());
+}
+
+export function findEpisodeByNumber<T extends EpisodeLike>(
+  episodes: T[],
+  episodeNumber: number
+): T | undefined {
+  return episodes.find((episode) => readEpisodeNumber(episode) === episodeNumber);
 }

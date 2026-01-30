@@ -1,0 +1,104 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const episodes = await getCollection("episodes");
+  return episodes.map((episode) => ({
+    params: { episode: String(episode.data.episodeNumber) },
+    props: { episode },
+  }));
+}
+
+const { episode } = Astro.props;
+const { Content } = await episode.render();
+const { title, episodeNumber, date, summary, tags, coverImage } = episode.data;
+---
+
+<Base title={`#${episodeNumber} — ${title} | Bitflip.show`}>
+  <article class="episode-detail">
+    <div class="detail-hero">
+      <div class="detail-cover">
+        <img src={coverImage} alt={`${title} cover art`} />
+      </div>
+      <div>
+        <div class="section-title">Episode #{episodeNumber}</div>
+        <h1 class="detail-title">{title}</h1>
+        <div class="detail-date">{date}</div>
+        <p class="detail-summary">{summary}</p>
+        {tags && (
+          <div class="detail-tags">
+            {tags.map((tag) => (
+              <span class="tag" key={tag}>{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+    <div class="detail-notes">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .episode-detail {
+    display: grid;
+    gap: 32px;
+  }
+  .detail-hero {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    align-items: center;
+  }
+  .detail-cover {
+    background: linear-gradient(160deg, var(--ink-800), var(--ink-700));
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border: 1px solid rgba(243, 139, 18, 0.2);
+  }
+  .detail-cover img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .detail-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 12px;
+  }
+  .detail-date {
+    color: var(--steel-500);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+  }
+  .detail-summary {
+    color: var(--steel-300);
+    max-width: 640px;
+  }
+  .detail-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .tag {
+    border: 1px solid rgba(243, 139, 18, 0.4);
+    color: var(--safety-500);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .detail-notes {
+    color: var(--steel-300);
+    line-height: 1.7;
+  }
+  @media (max-width: 860px) {
+    .detail-hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
