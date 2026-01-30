@@ -23,6 +23,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: bitflip-show
+          projectName: bitflip-site
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
