@@ -3,6 +3,7 @@ import { parseChapterTime } from "../lib/chapters";
 
 const { episode } = Astro.props;
 const { title, episodeNumber, duration, audioUrl, chapters } = episode.data;
+const playerId = `episode-player-${episodeNumber}`;
 const chapterItems = (chapters ?? []).map((chapter) => ({
   ...chapter,
   seconds: parseChapterTime(chapter.time),
@@ -10,6 +11,7 @@ const chapterItems = (chapters ?? []).map((chapter) => ({
 ---
 
 <div
+  id={playerId}
   class="episode-player"
   data-src={audioUrl}
   data-title={title}
@@ -37,8 +39,11 @@ const chapterItems = (chapters ?? []).map((chapter) => ({
   )}
 </div>
 
-<script type="module">
-  const root = document.currentScript.closest(".episode-player");
+<script type="module" define:vars={{ playerId }}>
+  const root = document.getElementById(playerId);
+  if (!root) {
+    console.warn("Bitflip player root not found", playerId);
+  }
   const playButton = root?.querySelector("[data-play]");
   const chapters = root?.querySelectorAll("[data-seek]") ?? [];
 
